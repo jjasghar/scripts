@@ -1,0 +1,23 @@
+NameVirtualHost 127.0.0.1:80 
+<VirtualHost localhost:80> 
+	DocumentRoot /var/www/
+	<Directory />
+		Options FollowSymLinks 
+		AllowOverride None
+	</Directory>
+	ErrorLog /var/log/apache2/error.log
+	LogLevel warn
+	CustomLog /var/log/apache2/access.log combined 
+	ServerSignature On
+</VirtualHost> 
+<VirtualHost local2:80>
+	DocumentRoot /var/www2/ 
+	<Directory />
+		Options FollowSymLinks
+		AllowOverride None 
+	</Directory>
+	ErrorLog /var/log/apache2/error2.log
+	LogLevel warn
+	CustomLog /var/log/apache2/access2.log combined 
+	ServerSignature On
+</VirtualHost>
