@@ -1,9 +1,12 @@
 #!/bin/bash
 
 USER=asgharje
-DATE=`date +%F`
-TOMCAT_DATE=`date +%Y%m%d`
-BB_DATE=`date +%Y-%m-%d`
+DATE=2012-07-01
+#DATE=`date +%F`
+#TOMCAT_DATE=`date +%Y%m%d`
+TOMCAT_DATE=20120701
+#BB_DATE=`date +%Y-%m-%d`
+BB_DATE=2012-07-01
 
 #
 # Create the directory
