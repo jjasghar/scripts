@@ -1,10 +1,22 @@
-#!/usr/local/bin/bash
+#!/bin/bash
+
+#
+# Add this to /etc/profile
+# example:
+#    /usr/local/bin/dynmotd
+# Don't forget to chmod +x it.
+# Create /etc/motd-maint to track changes that need to be posted
+#
+
+
+EMAIL="jjasghar@gmail.com"
 PROCCOUNT=`ps -Afl | wc -l`
 PROCCOUNT=`expr $PROCCOUNT - 5`
-NIC=em0
-IPADDY=`ifconfig $NIC | grep inet | awk -F " " '{print $2}' | grep -v ::`
+NIC=eth0
+IPADDY=`ifconfig $NIC | grep inet | awk -F " " '{print $2}' | grep -v :: | sed 's/addr://g'`
 DATE=`date +%F`
 EPOCH=`date +%s`
+UPTIME=`uptime` # | sed 's/.*up ([^,]*), .*/1/'`
 
 echo -e "
 #################################################################################
@@ -21,12 +33,12 @@ echo -e "
 + address  = $IPADDY
 + os type  = `uname -s`
 + kernel   = `uname -r`
-+ uptime   = `uptime | sed 's/.*up ([^,]*), .*/1/'`
++ uptime   = $UPTIME
 ++++++++++++++++++++++++++++++++: User Data :+++++++++++++++++++++++++++++++++++++
 + username  = `whoami`
 + processes = $PROCCOUNT of `ulimit -u` 
 +++++++++++++++++++++++++++: Helpful Information :++++++++++++++++++++++++++++++++
-+ admin = jjasghar@utexas.edu
++ admin = $EMAIL
 + date  = $DATE
 + epoch = $EPOCH
 +++++++++++++++++++++++++: Maintenance Information :++++++++++++++++++++++++++++++
