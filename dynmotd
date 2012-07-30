@@ -1,0 +1,35 @@
+#!/usr/local/bin/bash
+PROCCOUNT=`ps -Afl | wc -l`
+PROCCOUNT=`expr $PROCCOUNT - 5`
+NIC=em0
+IPADDY=`ifconfig $NIC | grep inet | awk -F " " '{print $2}' | grep -v ::`
+DATE=`date +%F`
+EPOCH=`date +%s`
+
+echo -e "
+#################################################################################
+WARNING:- YOU MUST HAVE PRIOR AUTHORIZATION TO ACCESS THIS SYSTEM. ALL 
+CONNECTIONS ARE LOGGED AND MONITORED. BY CONNECTING TO THIS SYSTEM YOU FULLY
+CONSENT TO ALL MONITORING. UN-AUTHORIZED ACCESS OR USE WILL BE PROSECUTED TO
+THE FULL EXTENT OF LAW. YOU HAVE BEEN WARNED
+#################################################################################
+"
+
+echo -e "
++++++++++++++++++++++++++++++++++: System Data :++++++++++++++++++++++++++++++++++
++ hostname = `hostname`
++ address  = $IPADDY
++ os type  = `uname -s`
++ kernel   = `uname -r`
++ uptime   = `uptime | sed 's/.*up ([^,]*), .*/1/'`
+++++++++++++++++++++++++++++++++: User Data :+++++++++++++++++++++++++++++++++++++
++ username  = `whoami`
++ processes = $PROCCOUNT of `ulimit -u` 
++++++++++++++++++++++++++++: Helpful Information :++++++++++++++++++++++++++++++++
++ admin = jjasghar@utexas.edu
++ date  = $DATE
++ epoch = $EPOCH
++++++++++++++++++++++++++: Maintenance Information :++++++++++++++++++++++++++++++
++ `cat /etc/motd-maint`
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+"
