@@ -1,0 +1,7 @@
+#!/bin/bash
+tmux new-session -s writing -n main -d
+tmux send-keys -t writing 'cd ~/repo/jjasghar.github.io/source/_posts' C-m
+tmux send-keys -t writing 'vim' C-m
+tmux split-window -v -p 10 -t writing
+tmux send-keys -t writing:1.2 'cd ~/repo/jjasghar.github.io/' C-m
+tmux attach -t writing

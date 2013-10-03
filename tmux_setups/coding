@@ -1,0 +1,7 @@
+#!/bin/bash
+tmux new-session -s coding -n main -d
+tmux send-keys -t coding 'cd ~/scripts/' C-m
+tmux send-keys -t coding 'vim' C-m
+tmux split-window -v -p 10 -t coding
+tmux send-keys -t coding:1.2 'cd ~/scripts' C-m
+tmux attach -t coding
